@@ -19,17 +19,18 @@ export const {
   adapter: PrismaAdapter(db),
   providers: [
     GitHub({
-      clientId: GITHUB_CLIENT_ID,
-      clientSecret: GITHUB_CLIENT_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // usually not needed, here we are fixing a bug in nextauth
-    // @ts-ignore
-    async session({ session, user }: any) {
-      if (session && user) {
-        session.id = user.id;
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
       }
+      return session;
     },
   },
+  debug: process.env.NODE_ENV === "development",
 });
