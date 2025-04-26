@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
-import paths from "@/path";
+import paths from "@/paths";
 import { Post } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -86,6 +86,6 @@ export async function createPost(
     }
   }
 
-  revalidatePath(paths.topicShowPath(slug));
-  redirect(paths.postShowPath(slug, post.id));
+  revalidatePath(paths.topicShow(slug));
+  redirect(paths.postShow(slug, post.id));
 }

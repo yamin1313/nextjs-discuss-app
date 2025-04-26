@@ -1,7 +1,7 @@
 "use server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import paths from "@/path";
+import paths from "@/paths";
 import { Topic } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -74,5 +74,5 @@ export async function createTopic(
   }
 
   revalidatePath("/");
-  redirect(paths.topicShowPath(topic.slug));
+  redirect(paths.topicShow(topic.slug));
 }
